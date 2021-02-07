@@ -4,8 +4,9 @@ jobs:
     working_directory: ~/code
     docker:
       - image: circleci/android:api-30
+      - image: 'circleci/openjdk:11-jdk'
     environment:
-      JVM_OPTS: -export JAVA_HOME="/usr/lib/jvm/java-1.8.0-openjdk
+      JVM_OPTS: -export JAVA_HOME="C:\Program Files\Java\jdk-15.0.1"
     steps:
       - checkout
       - restore_cache:
@@ -16,6 +17,9 @@ jobs:
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
+      - run:
+          name: Analyze on SonarCloud
+          command: gradle build sonarqube"
       - save_cache:
           paths:
             - ~/.gradle
@@ -28,3 +32,9 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
+
+   workflows:
+      main:
+        jobs:
+          - build:
+              context: SonarCloud
