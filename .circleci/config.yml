@@ -1,6 +1,7 @@
 version: 2
 jobs:
   build:
+    context: SonarCloud
     working_directory: ~/code
     docker:
       - image: circleci/android:api-30
@@ -32,9 +33,3 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
-
-   workflows:
-      main:
-        jobs:
-          - build:
-              context: SonarCloud
