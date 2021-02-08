@@ -1,4 +1,4 @@
-version: 2
+version: 2.1
 jobs:
   build:
     working_directory: ~/code
@@ -19,6 +19,9 @@ jobs:
       - run:
           name: Download Dependencies
           command: ./gradlew androidDependencies
+      - run:
+          name: Analyze on SonarCloud
+          command: gradle build sonarqube"    
       - save_cache:
           paths:
             - ~/.gradle
@@ -31,3 +34,9 @@ jobs:
           destination: reports
       - store_test_results:
           path: app/build/test-results
+
+workflows:
+  main:
+    jobs:
+      - build:
+          context: SonarCloud          
