@@ -12,10 +12,7 @@ jobs:
     steps:
       - checkout
       - restore_cache:
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
-      - run:
-          name: Gradle Build
-          command: ./gradlew build    
+          key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }} 
       - run:
           name: chmod permissions
           command: chmod +x ./gradlew
@@ -29,9 +26,6 @@ jobs:
       - run:
           name: Run Tests
           command: ./gradlew lint test
-      - run:
-          name: Analyze on SonarCloud
-          command: gradle build sonarqube   
       - store_artifacts:
           path: app/build/reports
           destination: reports
