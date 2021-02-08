@@ -11,9 +11,6 @@ jobs:
       TERM: dumb
     steps:
       - checkout
-      - run:
-          name: Analyze on SonarCloud
-          command: gradle build sonarqube
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
       - run:
