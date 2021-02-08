@@ -7,7 +7,7 @@ jobs:
       - image: circleci/android:api-30
       - image: 'circleci/openjdk:11-jdk'
     environment:
-      JAVA_HOME: C:\Program Files\Java\jdk-15.0.1
+      JAVA_HOME: xxxx\Sdk
     steps:
       - checkout
       - restore_cache:
