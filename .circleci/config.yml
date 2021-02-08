@@ -2,9 +2,10 @@
 #
 # Check https://circleci.com/docs/2.0/language-java/ for more details
 #
-version: 2.1
+version: 2
 jobs:
   build:
+    context: SonarCloud
     docker:
       # specify the version you desire here
       - image: circleci/android:api-30
@@ -44,9 +45,4 @@ jobs:
 
       # run tests!
       - run: gradle test
-
-workflows:
-  main:
-    jobs:
-      - build:
-          context: SonarCloud
+         
