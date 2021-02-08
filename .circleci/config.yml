@@ -28,7 +28,7 @@ jobs:
           command: ./gradlew lint test
       - run:
           name: Analyze on SonarCloud
-          command: gradle build SonarCloud   
+          command: gradle build sonarqube   
       - store_artifacts:
           path: app/build/reports
           destination: reports
