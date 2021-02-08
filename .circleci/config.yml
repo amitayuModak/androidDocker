@@ -11,6 +11,9 @@ jobs:
       TERM: dumb
     steps:
       - checkout
+      - run:
+          name: Install Node Dependencies
+          command: gradle -v
       - restore_cache:
           key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}
       - run:
