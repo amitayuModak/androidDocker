@@ -38,6 +38,12 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apks/
+      - run:
+            name: Upload to Slack
+            command: |
+              export GIT_COMMIT_DESC=$(git log --format=oneline -n 1 | sed -E 's/^[^ ]+ (.*)$/\1/g')
+              curl -F file=@app/build/test-results/app-debug.apk -F channels=$SLACK_CHANNEL -F token=$SLACK_API_TOKEN -F title="${CIRCLE_PROJECT_REPONAME} | branch -> ${CIRCLE_BRANCH} | commit -> ${GIT_COMMIT_DESC}"  https://hooks.slack.com/services/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
+    
 
 workflows:
   main:
