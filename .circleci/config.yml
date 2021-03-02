@@ -1,6 +1,4 @@
 version: 2.1
-orbs:
-  slack: circleci/slack@4.0
 jobs:
   build:
     working_directory: ~/code
@@ -40,30 +38,9 @@ jobs:
       - store_artifacts:
           path: app/build/outputs/apk/
           destination: apks/
-      - slack/notify:
-          custom: |
-            {
-              "blocks": [
-                {
-                  "type": "section",
-                  "fields": [
-                    {
-                      "type": "plain_text",
-                      "text": "*This is a text notification*",
-                      "emoji": true
-                    }
-                  ]
-                }
-              ]
-            }
-          event: always    
 
 workflows:
   main:
     jobs:
       - build:
-          context: SonarCloud
-send-notification:
-    jobs:
-      - notify:
-          context: slack-secrets        
+          context: SonarCloud      
